@@ -4,11 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductListView extends StatelessWidget {
-  const ProductListView({ super.key});
+  final String category;
+  const ProductListView({required this.category, super.key});
 
   @override
   Widget build(BuildContext context) {
-      
+    BlocProvider.of<ProductsBloc>(context)
+        .add(ProductsLoadingEvent(category: category));
+
     return BlocBuilder<ProductsBloc, ProductsState>(
       builder: (context, state) {
         switch (state.runtimeType) {

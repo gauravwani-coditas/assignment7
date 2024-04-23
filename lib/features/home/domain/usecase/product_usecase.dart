@@ -14,7 +14,7 @@ class ProductUseCase{
 
   Future<List<ProductModel>> getProductsUsecase(String category) async{
     print("\nInside ProductUsecase : \n");
-    List<ProductModel> products = await ProductRepoDefinition().getProducts(category);
+    List<ProductModel> products = await locator<ProductRepoDefinition>().getProducts(category);
     print("Inside Product Repo Definition : ${products}");
     return products;
   }

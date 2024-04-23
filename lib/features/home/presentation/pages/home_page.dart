@@ -10,7 +10,6 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-
       length: 5,
       child: Scaffold(
         appBar: AppBar(
@@ -18,42 +17,33 @@ class Home extends StatelessWidget {
           bottom: const TabBar(
             isScrollable: true,
             tabs: [
-            Tab(
-              text: "All",
-            ),
-            Tab(
-              text: "electronics",
-            ),
-            Tab(
-              text: "jewelery",
-            ),
-            Tab(
-              text: "men's clothing",
-            ),
-            Tab(
-              text: "women's clothing",
-            )
-          ],
-          labelPadding: EdgeInsets.symmetric(horizontal: 16),),
+              Tab(
+                text: "All",
+              ),
+              Tab(
+                text: "electronics",
+              ),
+              Tab(
+                text: "jewelery",
+              ),
+              Tab(
+                text: "men's clothing",
+              ),
+              Tab(
+                text: "women's clothing",
+              )
+            ],
+            labelPadding: EdgeInsets.symmetric(horizontal: 16),
+          ),
         ),
-        body:  TabBarView(children: [
-          getProductBasedOnCategory("all",context),
-          getProductBasedOnCategory("electronics",context),
-          getProductBasedOnCategory("jewelery",context),
-         getProductBasedOnCategory("men's clothing",context),
-         getProductBasedOnCategory("women's clothing",context),
+        body: const TabBarView(children: [
+          ProductListView(category: "all"),
+          ProductListView(category: "electronics"),
+          ProductListView(category: "jewelery"),
+          ProductListView(category: "men's clothing"),
+          ProductListView(category: "women's clothing"),
         ]),
       ),
     );
   }
-}
-
-
-Widget getProductBasedOnCategory(String category,BuildContext context){
-
-
-  BlocProvider.of<ProductsBloc>(context).add(ProductsLoadingEvent(category: category));
-  return ProductListView();
-
-
 }

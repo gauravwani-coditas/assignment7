@@ -6,6 +6,7 @@ import 'package:assignment7/features/home/data/models/product_model.dart';
 import 'package:assignment7/features/home/domain/entities/product_entity.dart';
 import 'package:assignment7/features/home/domain/usecase/product_usecase.dart';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
@@ -27,7 +28,8 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
     await Future.delayed(Duration(seconds: 1));
     try {
       print("\nInside Try \n");
-      final List<ProductModel> products = await ProductUseCase().getProductsUsecase(event.category) ;
+      
+       final List<ProductModel> products = await locator<ProductUseCase>().getProductsUsecase(event.category) ;
       print("Inside bloc : ${products}");
       emit(ProductsSuccessState(products: products));
     } catch (e) {

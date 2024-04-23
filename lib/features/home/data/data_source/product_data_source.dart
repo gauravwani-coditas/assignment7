@@ -12,18 +12,18 @@ class ProductDataSource{
     try { 
       print("Trying for response !");
       String url ;
+      print('\n\n\n\nCategory :${category} \n\n\n\n');
       if(category == "all"){
         url = "https://fakestoreapi.com/products";
       }
       else{
         url = "https://fakestoreapi.com/products/category/${category}";
       }
-      final response = await client
-          .get(Uri.parse(url));
+      final response = await client.get(Uri.parse(url));
 
       if(response.statusCode == 200){
 
-      //print(response.body);
+      print(response.body);
        final List<dynamic> productsJonsArray = jsonDecode(response.body);
        print(productsJonsArray);
        print(productsJonsArray.map((e)=>ProductModel.fromJson(e)).toList());
