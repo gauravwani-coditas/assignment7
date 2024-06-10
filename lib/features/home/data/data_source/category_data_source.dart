@@ -1,28 +1,24 @@
 import 'dart:convert';
 
 import 'package:assignment7/features/home/data/models/category_model.dart';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
-class CategoryDataSource{
-
-
-  Future<List<CategoryModel>>  fetchCategories() async{
-    var client = http.Client();
+class CategoryDataSource {
+  Future<List<CategoryModel>> fetchCategories() async {
+    Dio dio = Dio();
     try {
-      var response = await client
-          .get(Uri.parse("https://fakestoreapi.com/products/categories"));
-
-      if(response.statusCode == 200){
-       final jsonArray = jsonDecode(response.body);
-       List<CategoryModel> categories = jsonArray.map((e)=>CategoryModel.fromJson(e));
-       return categories;
-      }
-      else{
+      Response response =
+          await dio.get("https://fakestoreapi.com/products/categories");
+      if (response.statusCode == 200) {
+        final jsonArray = response.data;
+        List<CategoryModel> categories =
+            jsonArray.map((e) => CategoryModel.fromJson(e));
+        return categories;
+      } else {
         return [];
       }
     } catch (e) {
       throw Exception("Error occured !");
     }
-
   }
 }
